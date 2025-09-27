@@ -83,10 +83,10 @@
                         <span>Personnel</span>
                     </a>
                     
-                    <a href="#" class="flex items-center text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50">
-                        <i class="fas fa-chart-bar mr-1"></i>
-                        <span class="hidden lg:inline">Rapports</span>
-                        <span class="lg:hidden">Stats</span>
+                    <a href="{{ route('services.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('services.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                        <i class="fas fa-cogs mr-1"></i>
+                        <span class="hidden lg:inline">Services</span>
+                        <span class="lg:hidden">Services</span>
                     </a>
                     
                     <a href="{{ route('parametres.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('parametres.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
@@ -139,9 +139,9 @@
                     <i class="fas fa-users mr-3 w-5 text-center"></i>
                     <span>Personnel</span>
                 </a>
-                <a href="#" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors">
-                    <i class="fas fa-chart-bar mr-3 w-5 text-center"></i>
-                    <span>Rapports</span>
+                <a href="{{ route('services.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('services.*') ? 'text-indigo-600 bg-indigo-50' : '' }}">
+                    <i class="fas fa-cogs mr-3 w-5 text-center"></i>
+                    <span>Services</span>
                 </a>
                 <a href="{{ route('parametres.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('parametres.*') ? 'text-indigo-600 bg-indigo-50' : '' }}">
                     <i class="fas fa-cog mr-3 w-5 text-center"></i>

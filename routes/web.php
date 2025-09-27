@@ -220,6 +220,36 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/reports/export', [App\Http\Controllers\PersonnelController::class, 'exportData'])->name('reports.export');
 
     });
+
+    // Routes pour le module services
+    Route::middleware(['auth'])->prefix('services')->name('services.')->group(function () {
+        Route::get('/', [App\Http\Controllers\ServiceController::class, 'index'])->name('index');
+        
+        // Routes pour les services
+        Route::get('/data', [App\Http\Controllers\ServiceController::class, 'getServices'])->name('data');
+        Route::post('/store', [App\Http\Controllers\ServiceController::class, 'storeService'])->name('store');
+        Route::put('/{service}', [App\Http\Controllers\ServiceController::class, 'updateService'])->name('update');
+        Route::delete('/{service}', [App\Http\Controllers\ServiceController::class, 'destroyService'])->name('destroy');
+        
+        // Routes pour les dépenses
+        Route::get('/depenses/data', [App\Http\Controllers\ServiceController::class, 'getDepenses'])->name('depenses.data');
+        Route::post('/depenses/store', [App\Http\Controllers\ServiceController::class, 'storeDepense'])->name('depenses.store');
+        Route::put('/depenses/{depense}', [App\Http\Controllers\ServiceController::class, 'updateDepense'])->name('depenses.update');
+        Route::delete('/depenses/{depense}', [App\Http\Controllers\ServiceController::class, 'destroyDepense'])->name('depenses.destroy');
+        Route::get('/depenses/{depense}/fiche', [App\Http\Controllers\ServiceController::class, 'ficheDepense'])->name('depenses.fiche');
+        
+        // Routes utilitaires
+        Route::get('/services-select', [App\Http\Controllers\ServiceController::class, 'getServicesForSelect'])->name('services.select');
+        
+        // Routes pour les filtres et rapports
+        Route::post('/depenses/filtrer', [App\Http\Controllers\ServiceController::class, 'filtrerDepenses'])->name('depenses.filtrer');
+        Route::post('/rapports/generer', [App\Http\Controllers\ServiceController::class, 'genererRapport'])->name('rapports.generer');
+        
+        // Routes pour les exports
+        Route::post('/depenses/exporter', [App\Http\Controllers\ServiceController::class, 'exporterDepenses'])->name('depenses.exporter');
+        Route::post('/depenses/apercu', [App\Http\Controllers\ServiceController::class, 'apercuDepenses'])->name('depenses.apercu');
+        Route::post('/rapports/exporter-pdf', [App\Http\Controllers\ServiceController::class, 'exporterRapportPDF'])->name('rapports.exporter-pdf');
+    });
 });
 
 require __DIR__.'/auth.php';

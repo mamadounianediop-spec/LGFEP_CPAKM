@@ -22,10 +22,11 @@
             overflow-x: hidden;
         }
         
-        /* CORRECTIONS RESPONSIVE MODÉRÉES */
+        /* CORRECTIONS RESPONSIVE OPTIMISÉES GRANDS ÉCRANS */
         @media (min-width: 1440px) {
-            .max-w-7xl {
-                max-width: 1400px !important;
+            .max-w-7xl, .container {
+                max-width: 95% !important;
+                margin: 0 auto !important;
             }
             
             h1 { font-size: 2.5rem !important; }
@@ -42,6 +43,27 @@
             .text-lg { font-size: 1.2rem !important; }
         }
         
+        /* ULTRA GRANDS ÉCRANS - Utilisation maximale */
+        @media (min-width: 1920px) {
+            .max-w-7xl, .container, .max-w-6xl, .max-w-5xl {
+                max-width: 98% !important;
+                width: 98% !important;
+                margin: 0 auto !important;
+            }
+            
+            .px-6 { padding-left: 2rem !important; padding-right: 2rem !important; }
+            .py-6 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+            
+            /* Contenus plus larges */
+            .grid { gap: 2rem !important; }
+            .space-y-6 > * + * { margin-top: 2rem !important; }
+            
+            /* Cartes et conteneurs */
+            .bg-white, .shadow, .rounded {
+                padding: 2rem !important;
+            }
+        }
+        
         /* Navigation responsive - prévention débordement */
         nav .hidden.md\\:flex {
             overflow: hidden;
@@ -51,6 +73,31 @@
         nav a {
             flex-shrink: 1;
             min-width: 0;
+        }
+        
+        /* OPTIMISATION GLOBALE POUR TOUS LES CONTENEURS */
+        @media (min-width: 1600px) {
+            /* Conteneurs principaux utilisent plus d'espace */
+            .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl {
+                max-width: 96% !important;
+                width: 96% !important;
+            }
+            
+            /* Réduction des paddings excessifs */
+            .px-8 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+            .px-10 { padding-left: 2rem !important; padding-right: 2rem !important; }
+            .px-12 { padding-left: 2rem !important; padding-right: 2rem !important; }
+            
+            /* Tables et grids plus larges */
+            .overflow-x-auto table {
+                width: 100% !important;
+            }
+            
+            /* Formulaires plus larges */
+            .grid-cols-1 { grid-template-columns: repeat(2, 1fr) !important; }
+            .grid-cols-2 { grid-template-columns: repeat(3, 1fr) !important; }
+            .md\\:grid-cols-2 { grid-template-columns: repeat(3, 1fr) !important; }
+            .lg\\:grid-cols-3 { grid-template-columns: repeat(4, 1fr) !important; }
         }
         
         /* Animation d'apparition pour les modales */

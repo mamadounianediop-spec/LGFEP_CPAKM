@@ -277,12 +277,187 @@
 @media (min-width: 1024px) {
     .responsive-container {
         padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1280px) {
+    .responsive-container {
+        padding: 2.5rem;
+        max-width: 1400px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .responsive-container {
+        padding: 3rem;
+        max-width: 1600px;
     }
 }
 
 /* 13. CORRECTIONS GLOBALES POUR TOUS LES ÉLÉMENTS */
 .max-w-7xl {
     max-width: 100% !important;
+}
+
+/* 16. CORRECTIONS POUR GRANDS ÉCRANS DESKTOP (1440px+) */
+@media (min-width: 1440px) {
+    .max-w-7xl {
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+    }
+    
+    .responsive-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    /* Grids plus larges sur grand écran */
+    .grid-cols-2 {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+    
+    .grid-cols-3 {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+    
+    .grid-cols-4 {
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    }
+    
+    /* Tableaux avec plus d'espace */
+    th, td {
+        padding: 0.75rem 1rem !important;
+    }
+    
+    /* Textes plus grands */
+    h1, .text-2xl {
+        font-size: 2rem !important;
+    }
+    
+    h2, .text-xl {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Boutons plus spacieux */
+    button, .btn, a.btn {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 1rem !important;
+    }
+    
+    /* Cards avec plus d'espace */
+    .p-6 {
+        padding: 2rem !important;
+    }
+    
+    /* Espacement augmenté */
+    .space-y-6 > * + * {
+        margin-top: 2rem !important;
+    }
+    
+    .space-x-6 > * + * {
+        margin-left: 2rem !important;
+    }
+}
+
+/* 17. CORRECTIONS POUR TRÈS GRANDS ÉCRANS (1920px+) */
+@media (min-width: 1920px) {
+    .max-w-7xl {
+        max-width: 1800px !important;
+    }
+    
+    .responsive-container {
+        max-width: 1800px;
+        padding: 3rem;
+    }
+    
+    /* Navigation plus spacieuse */
+    .nav-tabs button {
+        padding: 1rem 2rem !important;
+        font-size: 1.125rem !important;
+    }
+    
+    /* Grids encore plus larges */
+    .grid-cols-2 {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+    
+    .grid-cols-3 {
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    }
+    
+    .grid-cols-4 {
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    }
+    
+    /* Textes encore plus grands */
+    h1, .text-2xl {
+        font-size: 2.5rem !important;
+    }
+    
+    h2, .text-xl {
+        font-size: 1.875rem !important;
+    }
+    
+    /* Modales plus larges */
+    .modal-container {
+        max-width: 800px !important;
+    }
+    
+    /* Stats cards plus larges */
+    .stat-card {
+        padding: 2rem !important;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 3rem !important;
+    }
+}
+
+/* 18. CLASSES UTILITAIRES POUR GRANDS ÉCRANS */
+.desktop-large {
+    @media (min-width: 1440px) {
+        padding: 2rem !important;
+        font-size: 1.125rem !important;
+    }
+}
+
+.desktop-xl {
+    @media (min-width: 1920px) {
+        padding: 3rem !important;
+        font-size: 1.25rem !important;
+    }
+}
+
+/* 19. CORRECTION AUTOMATIQUE DES CONTENEURS EXISTANTS */
+@media (min-width: 1024px) {
+    .container,
+    .max-w-6xl,
+    .max-w-5xl,
+    .max-w-4xl {
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (min-width: 1440px) {
+    .container,
+    .max-w-6xl,
+    .max-w-5xl,
+    .max-w-4xl {
+        max-width: 1400px !important;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container,
+    .max-w-6xl,
+    .max-w-5xl,
+    .max-w-4xl {
+        max-width: 1800px !important;
+    }
 }
 
 @media (max-width: 640px) {

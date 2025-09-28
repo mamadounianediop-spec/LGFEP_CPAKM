@@ -3,17 +3,17 @@
 @section('title', 'Gestion des Inscriptions')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 py-6" x-data="{ activeTab: '{{ $activeTab ?? 'pre-inscription' }}' }">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gray-50 py-6 xl:py-8" x-data="{ activeTab: '{{ $activeTab ?? 'pre-inscription' }}' }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <!-- En-tête -->
-        <div class="mb-8">
-            <div class="flex items-center space-x-3 mb-2">
-                <div class="bg-blue-100 p-2 rounded-lg">
-                    <i class="fas fa-user-graduate text-blue-600 text-lg"></i>
+        <div class="mb-8 xl:mb-12">
+            <div class="flex items-center space-x-3 xl:space-x-6 mb-2">
+                <div class="bg-blue-100 p-2 xl:p-4 rounded-lg xl:rounded-xl">
+                    <i class="fas fa-user-graduate text-blue-600 text-lg xl:text-2xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Gestion des Inscriptions</h1>
-                    <p class="text-sm text-gray-600">Gérez les pré-inscriptions et inscriptions des élèves</p>
+                    <h1 class="text-2xl xl:text-4xl font-bold text-gray-900">Gestion des Inscriptions</h1>
+                    <p class="text-sm xl:text-lg text-gray-600 mt-1 xl:mt-2">Gérez les pré-inscriptions et inscriptions des élèves</p>
                 </div>
             </div>
         </div>

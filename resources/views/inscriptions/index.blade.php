@@ -20,7 +20,8 @@
 
         <!-- Navigation par onglets -->
         <div class="bg-white rounded-lg shadow-sm border mb-6">
-            <nav class="flex space-x-1 p-1">
+            <!-- Version Desktop -->
+            <nav class="hidden md:flex space-x-1 p-1">
                 <button @click="activeTab = 'pre-inscription'" 
                         :class="activeTab === 'pre-inscription' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'"
                         class="flex items-center px-4 py-3 rounded-md font-medium text-sm transition-all duration-200 flex-1 justify-center">
@@ -41,12 +42,44 @@
                         class="flex items-center px-4 py-3 rounded-md font-medium text-sm transition-all duration-200 flex-1 justify-center">
                     <i class="fas fa-file-alt mr-2"></i>Liste d'Appel
                 </button>
-                </button>
                 <button @click="activeTab = 'rapports'" 
                         :class="activeTab === 'rapports' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'"
                         class="flex items-center px-4 py-3 rounded-md font-medium text-sm transition-all duration-200 flex-1 justify-center">
                     <i class="fas fa-chart-bar mr-2"></i>Rapports
                 </button>
+            </nav>
+            
+            <!-- Version Mobile -->
+            <nav class="md:hidden p-1">
+                <div class="grid grid-cols-2 gap-1 mb-1">
+                    <button @click="activeTab = 'pre-inscription'" 
+                            :class="activeTab === 'pre-inscription' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'"
+                            class="flex items-center px-2 py-2 rounded-md font-medium text-xs transition-all duration-200 justify-center">
+                        <i class="fas fa-user-plus mr-1"></i><span class="hidden xs:inline">Pré-inscription</span><span class="xs:hidden">Pré-inscr.</span>
+                    </button>
+                    <button @click="activeTab = 'inscription'" 
+                            :class="activeTab === 'inscription' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'"
+                            class="flex items-center px-2 py-2 rounded-md font-medium text-xs transition-all duration-200 justify-center">
+                        <i class="fas fa-user-check mr-1"></i><span class="hidden xs:inline">Inscription</span><span class="xs:hidden">Inscr.</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-3 gap-1">
+                    <button @click="activeTab = 'liste-eleves'" 
+                            :class="activeTab === 'liste-eleves' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'"
+                            class="flex items-center px-2 py-2 rounded-md font-medium text-xs transition-all duration-200 justify-center">
+                        <i class="fas fa-users mr-1"></i><span class="hidden xs:inline">Liste Élèves</span><span class="xs:hidden">Élèves</span>
+                    </button>
+                    <button @click="activeTab = 'liste-administrative'" 
+                            :class="activeTab === 'liste-administrative' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'"
+                            class="flex items-center px-2 py-2 rounded-md font-medium text-xs transition-all duration-200 justify-center">
+                        <i class="fas fa-file-alt mr-1"></i><span class="hidden xs:inline">Liste d'Appel</span><span class="xs:hidden">Appel</span>
+                    </button>
+                    <button @click="activeTab = 'rapports'" 
+                            :class="activeTab === 'rapports' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'"
+                            class="flex items-center px-2 py-2 rounded-md font-medium text-xs transition-all duration-200 justify-center">
+                        <i class="fas fa-chart-bar mr-1"></i><span class="hidden xs:inline">Rapports</span><span class="xs:hidden">Stats</span>
+                    </button>
+                </div>
             </nav>
         </div>
 

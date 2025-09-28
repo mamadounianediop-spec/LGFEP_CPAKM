@@ -9,3 +9,422 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* =================================================
+   CORRECTIONS RESPONSIVE DESIGN POUR CPAKM
+   Améliore l'affichage sur mobile et tablette
+   ================================================= */
+
+/* 1. CORRECTIONS GÉNÉRALES POUR MOBILE */
+@media (max-width: 640px) {
+    .max-w-7xl.mx-auto {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    h1 {
+        font-size: 1.25rem;
+    }
+    h2 {
+        font-size: 1.125rem;
+    }
+    h3 {
+        font-size: 1rem;
+    }
+    
+    .btn-group button {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* 2. CORRECTIONS POUR LES ONGLETS */
+@media (max-width: 768px) {
+    .nav-tabs {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .nav-tabs button {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+/* 3. CORRECTIONS POUR LES TABLEAUX */
+@media (max-width: 1024px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table-responsive table {
+        min-width: 100%;
+        width: max-content;
+    }
+    
+    .table-responsive th,
+    .table-responsive td {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+        white-space: nowrap;
+    }
+    
+    .table-responsive .hide-mobile {
+        display: none;
+    }
+    
+    .table-responsive .show-mobile {
+        display: table-cell;
+    }
+}
+
+@media (min-width: 640px) {
+    .table-responsive .hide-mobile {
+        display: table-cell;
+    }
+}
+
+/* 4. CORRECTIONS POUR LES MODALES */
+@media (max-width: 640px) {
+    .modal-container {
+        margin: 1rem;
+        max-width: none;
+    }
+    
+    .modal-content {
+        padding: 1rem;
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.125rem;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .modal-footer button {
+        width: 100%;
+    }
+}
+
+/* 5. CORRECTIONS POUR LES FORMULAIRES */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-actions button {
+        width: 100%;
+    }
+}
+
+/* 6. CORRECTIONS POUR LES CARTES DE STATISTIQUES */
+@media (max-width: 640px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .stat-card {
+        padding: 0.75rem;
+    }
+    
+    .stat-card h3 {
+        font-size: 0.875rem;
+    }
+    
+    .stat-card .stat-value {
+        font-size: 1.25rem;
+    }
+}
+
+/* 7. CORRECTIONS POUR LA NAVIGATION */
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: block;
+    }
+    
+    .desktop-menu {
+        display: none;
+    }
+    
+    .mobile-menu {
+        display: block;
+    }
+    
+    .mobile-nav-item {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}
+
+@media (min-width: 768px) {
+    .mobile-menu-button {
+        display: none;
+    }
+    
+    .desktop-menu {
+        display: flex;
+    }
+    
+    .mobile-menu {
+        display: none;
+    }
+}
+
+/* 8. CORRECTIONS POUR LES ALERTES ET NOTIFICATIONS */
+@media (max-width: 640px) {
+    .notification-container {
+        top: 0.5rem;
+        right: 0.5rem;
+        left: 0.5rem;
+    }
+    
+    .notification-toast {
+        max-width: none;
+    }
+    
+    .alert {
+        margin: 0 0.5rem;
+    }
+}
+
+/* 9. CORRECTIONS SPÉCIFIQUES POUR LES FICHES ÉLÈVES */
+@media (max-width: 640px) {
+    .fiche-eleve {
+        padding: 0.75rem;
+    }
+    
+    .fiche-eleve .qr-code {
+        width: 4rem;
+        height: 4rem;
+    }
+    
+    .fiche-eleve .info-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+
+/* 10. AMÉLIORATION DES ZONES DE TOUCH MOBILES */
+@media (max-width: 640px) {
+    button, .btn, a.btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .touch-target {
+        margin: 0.25rem;
+    }
+}
+
+/* 11. CORRECTIONS POUR L'IMPRESSION */
+@media print {
+    .print-hidden {
+        display: none !important;
+    }
+    
+    .table-responsive {
+        overflow-x: visible !important;
+    }
+    
+    .table-responsive table {
+        width: 100% !important;
+        min-width: auto !important;
+    }
+    
+    body {
+        font-size: 12px !important;
+    }
+}
+
+/* 12. CONTAINER RESPONSIVE GLOBAL */
+.responsive-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.5rem;
+}
+
+@media (min-width: 640px) {
+    .responsive-container {
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .responsive-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .responsive-container {
+        padding: 2rem;
+    }
+}
+
+/* 13. CORRECTIONS GLOBALES POUR TOUS LES ÉLÉMENTS */
+.max-w-7xl {
+    max-width: 100% !important;
+}
+
+@media (max-width: 640px) {
+    .max-w-7xl {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    
+    /* Tous les textes plus petits sur mobile */
+    h1, .text-2xl {
+        font-size: 1.25rem !important;
+    }
+    
+    h2, .text-xl {
+        font-size: 1.125rem !important;
+    }
+    
+    h3, .text-lg {
+        font-size: 1rem !important;
+    }
+    
+    /* Tous les boutons plus petits */
+    button, .btn, a.btn {
+        font-size: 0.875rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+    
+    /* Tous les espaces réduits */
+    .space-y-6 > * + * {
+        margin-top: 1rem !important;
+    }
+    
+    .space-x-6 > * + * {
+        margin-left: 1rem !important;
+    }
+    
+    /* Tous les padding réduits */
+    .p-6 {
+        padding: 1rem !important;
+    }
+    
+    .px-6 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .py-6 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    /* Toutes les grids sur une colonne */
+    .grid-cols-2,
+    .grid-cols-3,
+    .grid-cols-4,
+    .grid-cols-5,
+    .grid-cols-6 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    
+    /* Tous les flex en colonne */
+    .flex-row {
+        flex-direction: column !important;
+    }
+    
+    /* Toutes les modales plein écran */
+    .modal-container,
+    .fixed.inset-0 > div {
+        margin: 0.5rem !important;
+        max-width: none !important;
+        width: calc(100% - 1rem) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Tablettes */
+    .grid-cols-3,
+    .grid-cols-4,
+    .grid-cols-5,
+    .grid-cols-6 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    
+    /* Navigation en accordéon sur tablette */
+    .nav-tabs {
+        flex-wrap: wrap !important;
+    }
+    
+    .nav-tabs button {
+        flex: 1 1 auto !important;
+        min-width: 150px !important;
+    }
+}
+
+/* 14. CORRECTIONS AUTOMATIQUES POUR TOUS LES TABLEAUX */
+@media (max-width: 1024px) {
+    table {
+        font-size: 0.75rem !important;
+    }
+    
+    th, td {
+        padding: 0.25rem 0.5rem !important;
+        white-space: nowrap !important;
+    }
+    
+    /* Auto-scroll pour tous les tableaux */
+    .overflow-x-auto {
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: thin !important;
+    }
+    
+    .overflow-x-auto::-webkit-scrollbar {
+        height: 4px !important;
+    }
+    
+    .overflow-x-auto::-webkit-scrollbar-track {
+        background: #f1f1f1 !important;
+    }
+    
+    .overflow-x-auto::-webkit-scrollbar-thumb {
+        background: #888 !important;
+        border-radius: 2px !important;
+    }
+}
+
+/* 15. CORRECTIONS POUR TOUS LES FORMULAIRES */
+@media (max-width: 768px) {
+    .form-row,
+    .flex.space-x-4,
+    .flex.space-x-6 {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .form-row > *,
+    .flex.space-x-4 > *,
+    .flex.space-x-6 > * {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    
+    select, input, textarea {
+        font-size: 16px !important; /* Évite le zoom sur iOS */
+    }
+}

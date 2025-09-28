@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Administration - CPAKM')</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -49,47 +49,62 @@
 </head>
 <body class="bg-gray-50 font-inter">
     <!-- Navigation principale -->
-    <nav class="bg-white shadow-lg border-b border-gray-200 print:hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="bg-white shadow-lg border-b border-gray-200 print:hidden" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo et titre -->
                 <div class="flex items-center">
-                    <div class="flex-shrink-0 mr-8">
-                        <h1 class="text-xl font-bold text-indigo-600">CPAKM</h1>
-                        <p class="text-xs text-gray-500">Gestion Financière</p>
+                    <div class="flex-shrink-0 mr-4 md:mr-8">
+                        <h1 class="text-lg md:text-xl font-bold text-indigo-600">CPAKM</h1>
+                        <p class="text-xs text-gray-500 hidden sm:block">Gestion Financière</p>
                     </div>
                 </div>
 
-                <!-- Menu de navigation -->
-                <div class="hidden md:flex items-center space-x-6 flex-1 justify-center">
-                    <a href="{{ route('dashboard') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('dashboard') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
-                        <i class="fas fa-tachometer-alt mr-2"></i>
-                        <span>Dashboard</span>
+                <!-- Bouton menu mobile -->
+                <div class="md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" 
+                            class="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 p-2">
+                        <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                            <path x-show="!mobileMenuOpen" fill-rule="evenodd" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+                            <path x-show="mobileMenuOpen" fill-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Menu de navigation Desktop -->
+                <div class="hidden md:flex items-center space-x-2 lg:space-x-6 flex-1 justify-center">
+                    <a href="{{ route('dashboard') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('dashboard') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                        <i class="fas fa-tachometer-alt mr-1 lg:mr-2"></i>
+                        <span class="hidden lg:inline">Dashboard</span>
+                        <span class="lg:hidden">Home</span>
                     </a>
                     
-                    <a href="{{ route('inscriptions.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('inscriptions.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
-                        <i class="fas fa-user-graduate mr-2"></i>
-                        <span>Inscriptions</span>
+                    <a href="{{ route('inscriptions.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('inscriptions.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                        <i class="fas fa-user-graduate mr-1 lg:mr-2"></i>
+                        <span class="hidden lg:inline">Inscriptions</span>
+                        <span class="lg:hidden">Inscr.</span>
                     </a>
                     
-                    <a href="{{ route('mensualites.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('mensualites.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
-                        <i class="fas fa-money-bill-wave mr-2"></i>
-                        <span>Mensualités</span>
+                    <a href="{{ route('mensualites.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('mensualites.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                        <i class="fas fa-money-bill-wave mr-1 lg:mr-2"></i>
+                        <span class="hidden lg:inline">Mensualités</span>
+                        <span class="lg:hidden">Pay.</span>
                     </a>
                     
                     @if(auth()->user()->isAdminOrDirector())
-                    <a href="{{ route('personnel.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('personnel.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
-                        <i class="fas fa-users mr-2"></i>
-                        <span>Personnel</span>
+                    <a href="{{ route('personnel.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('personnel.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                        <i class="fas fa-users mr-1 lg:mr-2"></i>
+                        <span class="hidden lg:inline">Personnel</span>
+                        <span class="lg:hidden">Staff</span>
                     </a>
                     
-                    <a href="{{ route('services.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('services.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                    <a href="{{ route('services.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('services.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
                         <i class="fas fa-cogs mr-1"></i>
                         <span class="hidden lg:inline">Services</span>
-                        <span class="lg:hidden">Services</span>
+                        <span class="lg:hidden">Serv.</span>
                     </a>
                     
-                    <a href="{{ route('parametres.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('parametres.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                    <a href="{{ route('parametres.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('parametres.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
                         <i class="fas fa-cog mr-1"></i>
                         <span class="hidden lg:inline">Paramètres</span>
                         <span class="lg:hidden">Config</span>
@@ -98,16 +113,16 @@
                 </div>
 
                 <!-- User menu -->
-                <div class="flex items-center space-x-3 ml-auto">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-gray-700 text-sm font-medium max-w-32 truncate">
-                            {{ Str::limit(Auth::user()->name, 15, '...') }}
+                <div class="hidden md:flex items-center space-x-2 lg:space-x-3 ml-auto">
+                    <div class="flex items-center space-x-1 lg:space-x-2">
+                        <span class="text-gray-700 text-xs lg:text-sm font-medium max-w-20 lg:max-w-32 truncate">
+                            {{ Str::limit(Auth::user()->name, 10, '...') }}
                         </span>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                            {{ substr(ucfirst(Auth::user()->role), 0, 5) }}
+                        <span class="inline-flex items-center px-1 lg:px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                            {{ substr(ucfirst(Auth::user()->role), 0, 3) }}
                         </span>
                     </div>
-                    <div class="border-l border-gray-200 pl-3">
+                    <div class="border-l border-gray-200 pl-2 lg:pl-3">
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
                             <button type="submit" class="flex items-center text-gray-500 hover:text-red-600 transition-colors p-1.5 rounded-lg hover:bg-gray-100" title="Se déconnecter">
@@ -120,30 +135,49 @@
         </div>
 
         <!-- Menu mobile -->
-        <div class="md:hidden border-t border-gray-200" x-data="{ open: false }">
+        <div class="md:hidden border-t border-gray-200" x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
             <div class="px-4 pt-2 pb-3 space-y-1">
-                <a href="{{ route('dashboard') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('dashboard') ? 'text-indigo-600 bg-indigo-50' : '' }}">
+                <!-- Info utilisateur mobile -->
+                <div class="flex items-center justify-between px-3 py-2 bg-gray-50 rounded-md mb-3">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-700 text-sm font-medium truncate max-w-32">
+                            {{ Auth::user()->name }}
+                        </span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                            {{ substr(ucfirst(Auth::user()->role), 0, 5) }}
+                        </span>
+                    </div>
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="text-gray-500 hover:text-red-600 p-1" title="Se déconnecter">
+                            <i class="fas fa-sign-out-alt text-sm"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Navigation mobile -->
+                <a href="{{ route('dashboard') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('dashboard') ? 'text-indigo-600 bg-indigo-50' : '' }}" @click="mobileMenuOpen = false">
                     <i class="fas fa-tachometer-alt mr-3 w-5 text-center"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors">
+                <a href="{{ route('inscriptions.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('inscriptions.*') ? 'text-indigo-600 bg-indigo-50' : '' }}" @click="mobileMenuOpen = false">
                     <i class="fas fa-user-graduate mr-3 w-5 text-center"></i>
                     <span>Inscriptions</span>
                 </a>
-                <a href="#" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors">
+                <a href="{{ route('mensualites.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('mensualites.*') ? 'text-indigo-600 bg-indigo-50' : '' }}" @click="mobileMenuOpen = false">
                     <i class="fas fa-money-bill-wave mr-3 w-5 text-center"></i>
                     <span>Mensualités</span>
                 </a>
                 @if(auth()->user()->isAdminOrDirector())
-                <a href="{{ route('personnel.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('personnel.*') ? 'text-indigo-600 bg-indigo-50' : '' }}">
+                <a href="{{ route('personnel.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('personnel.*') ? 'text-indigo-600 bg-indigo-50' : '' }}" @click="mobileMenuOpen = false">
                     <i class="fas fa-users mr-3 w-5 text-center"></i>
                     <span>Personnel</span>
                 </a>
-                <a href="{{ route('services.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('services.*') ? 'text-indigo-600 bg-indigo-50' : '' }}">
+                <a href="{{ route('services.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('services.*') ? 'text-indigo-600 bg-indigo-50' : '' }}" @click="mobileMenuOpen = false">
                     <i class="fas fa-cogs mr-3 w-5 text-center"></i>
                     <span>Services</span>
                 </a>
-                <a href="{{ route('parametres.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('parametres.*') ? 'text-indigo-600 bg-indigo-50' : '' }}">
+                <a href="{{ route('parametres.index') }}" class="flex items-center px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors {{ request()->routeIs('parametres.*') ? 'text-indigo-600 bg-indigo-50' : '' }}" @click="mobileMenuOpen = false">
                     <i class="fas fa-cog mr-3 w-5 text-center"></i>
                     <span>Paramètres</span>
                 </a>
@@ -154,7 +188,9 @@
 
     <!-- Contenu principal -->
     <main class="min-h-screen">
-        @yield('content')
+        <div class="responsive-container">
+            @yield('content')
+        </div>
     </main>
 
     <!-- Modale de confirmation -->

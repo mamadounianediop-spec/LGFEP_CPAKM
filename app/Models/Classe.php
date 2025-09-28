@@ -41,6 +41,14 @@ class Classe extends Model
     }
 
     /**
+     * Get the inscriptions for the classe.
+     */
+    public function inscriptions(): HasMany
+    {
+        return $this->hasMany(Inscription::class);
+    }
+
+    /**
      * Scope a query to only include active classes.
      */
     public function scopeActif($query)

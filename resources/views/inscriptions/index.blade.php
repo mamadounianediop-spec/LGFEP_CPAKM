@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 py-6 xl:py-8" x-data="{ activeTab: '{{ $activeTab ?? 'pre-inscription' }}' }">
-    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-6 2xl:px-4" style="max-width: 98%;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         <!-- En-tête -->
         <div class="mb-8 xl:mb-10">
             <div class="flex items-center space-x-3 xl:space-x-4 mb-2">
@@ -139,14 +139,14 @@
             <!-- Tableau des pré-inscriptions -->
             <div class="bg-white rounded-lg shadow-sm border">
                 <div class="overflow-x-auto">
-                    <table class="w-full divide-y divide-gray-200" style="table-layout: fixed;">
+                    <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="w-32 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">INE</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">INE</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Élève</th>
-                                <th class="w-48 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                                <th class="w-24 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
-                                <th class="w-40 px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                                <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">

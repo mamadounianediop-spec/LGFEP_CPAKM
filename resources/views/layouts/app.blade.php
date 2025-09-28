@@ -10,8 +10,49 @@
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Styles personnalisés pour les modales -->
+    <!-- Styles personnalisés - prévention débordement et responsive -->
     <style>
+        /* PRÉVENTION DU DÉBORDEMENT HORIZONTAL */
+        * {
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* CORRECTIONS RESPONSIVE MODÉRÉES */
+        @media (min-width: 1440px) {
+            .max-w-7xl {
+                max-width: 1400px !important;
+            }
+            
+            h1 { font-size: 2.5rem !important; }
+            h2 { font-size: 2rem !important; }
+            h3 { font-size: 1.5rem !important; }
+            
+            .btn, button {
+                padding: 0.75rem 1.5rem !important;
+                font-size: 1rem !important;
+            }
+            
+            .text-sm { font-size: 0.95rem !important; }
+            .text-base { font-size: 1.1rem !important; }
+            .text-lg { font-size: 1.2rem !important; }
+        }
+        
+        /* Navigation responsive - prévention débordement */
+        nav .hidden.md\\:flex {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        nav a {
+            flex-shrink: 1;
+            min-width: 0;
+        }
+        
         /* Animation d'apparition pour les modales */
         #notification-modal .modal-content {
             animation: fadeInScale 0.3s ease-out;
@@ -50,11 +91,11 @@
 <body class="bg-gray-50 font-inter">
     <!-- Navigation principale -->
     <nav class="bg-white shadow-lg border-b border-gray-200 print:hidden" x-data="{ mobileMenuOpen: false }">
-        <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 xl:px-12">
-            <div class="flex justify-between items-center h-16 xl:h-20">
+        <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 xl:px-10">
+            <div class="flex justify-between items-center h-16 xl:h-18">
                 <!-- Logo et titre -->
                 <div class="flex items-center">
-                    <div class="flex-shrink-0 mr-4 md:mr-8 xl:mr-12">
+                    <div class="flex-shrink-0 mr-4 md:mr-8 xl:mr-10">
                         <h1 class="text-lg md:text-xl xl:text-2xl font-bold text-indigo-600">CPAKM</h1>
                         <p class="text-xs xl:text-sm text-gray-500 hidden sm:block">Gestion Financière</p>
                     </div>
@@ -72,40 +113,40 @@
                 </div>
 
                 <!-- Menu de navigation Desktop -->
-                <div class="hidden md:flex items-center space-x-2 lg:space-x-6 xl:space-x-8 flex-1 justify-center">
-                    <a href="{{ route('dashboard') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-4 xl:px-6 py-2 xl:py-3 text-xs lg:text-sm xl:text-base font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('dashboard') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
-                        <i class="fas fa-tachometer-alt mr-1 lg:mr-2 xl:mr-3"></i>
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-4 xl:space-x-6 flex-1 justify-center">
+                    <a href="{{ route('dashboard') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 xl:px-4 py-2 text-xs lg:text-sm xl:text-base font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('dashboard') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                        <i class="fas fa-tachometer-alt mr-1 lg:mr-2"></i>
                         <span class="hidden lg:inline">Dashboard</span>
                         <span class="lg:hidden">Home</span>
                     </a>
                     
-                    <a href="{{ route('inscriptions.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('inscriptions.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                    <a href="{{ route('inscriptions.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 xl:px-4 py-2 text-xs lg:text-sm xl:text-base font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('inscriptions.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
                         <i class="fas fa-user-graduate mr-1 lg:mr-2"></i>
                         <span class="hidden lg:inline">Inscriptions</span>
                         <span class="lg:hidden">Inscr.</span>
                     </a>
                     
-                    <a href="{{ route('mensualites.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('mensualites.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                    <a href="{{ route('mensualites.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 xl:px-4 py-2 text-xs lg:text-sm xl:text-base font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('mensualites.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
                         <i class="fas fa-money-bill-wave mr-1 lg:mr-2"></i>
                         <span class="hidden lg:inline">Mensualités</span>
                         <span class="lg:hidden">Pay.</span>
                     </a>
                     
                     @if(auth()->user()->isAdminOrDirector())
-                    <a href="{{ route('personnel.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('personnel.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                    <a href="{{ route('personnel.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 xl:px-4 py-2 text-xs lg:text-sm xl:text-base font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('personnel.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
                         <i class="fas fa-users mr-1 lg:mr-2"></i>
                         <span class="hidden lg:inline">Personnel</span>
                         <span class="lg:hidden">Staff</span>
                     </a>
                     
-                    <a href="{{ route('services.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('services.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
-                        <i class="fas fa-cogs mr-1"></i>
+                    <a href="{{ route('services.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 xl:px-4 py-2 text-xs lg:text-sm xl:text-base font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('services.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                        <i class="fas fa-cogs mr-1 lg:mr-2"></i>
                         <span class="hidden lg:inline">Services</span>
                         <span class="lg:hidden">Serv.</span>
                     </a>
                     
-                    <a href="{{ route('parametres.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 py-2 text-xs lg:text-sm font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('parametres.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
-                        <i class="fas fa-cog mr-1"></i>
+                    <a href="{{ route('parametres.index') }}" class="flex items-center text-gray-700 hover:text-indigo-600 px-2 lg:px-3 xl:px-4 py-2 text-xs lg:text-sm xl:text-base font-medium transition-colors rounded-lg hover:bg-gray-50 {{ request()->routeIs('parametres.*') ? 'text-indigo-600 bg-indigo-50 border border-indigo-200' : '' }}">
+                        <i class="fas fa-cog mr-1 lg:mr-2"></i>
                         <span class="hidden lg:inline">Paramètres</span>
                         <span class="lg:hidden">Config</span>
                     </a>
@@ -188,7 +229,7 @@
 
     <!-- Contenu principal -->
     <main class="min-h-screen">
-        <div class="responsive-container">
+        <div class="w-full max-w-full overflow-x-hidden px-2 sm:px-4 lg:px-8 xl:px-10 py-4 xl:py-6">
             @yield('content')
         </div>
     </main>

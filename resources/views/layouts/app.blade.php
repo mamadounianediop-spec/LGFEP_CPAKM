@@ -49,7 +49,7 @@
 </head>
 <body class="bg-gray-50 font-inter">
     <!-- Navigation principale -->
-    <nav class="bg-white shadow-lg border-b border-gray-200">
+    <nav class="bg-white shadow-lg border-b border-gray-200 print:hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo et titre -->

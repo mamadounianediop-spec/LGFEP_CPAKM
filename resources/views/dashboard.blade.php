@@ -48,19 +48,10 @@
                         <!-- Menu déroulant -->
                         <div id="rapportMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
                             <div class="py-2">
-                                <a href="{{ route('rapport.global', ['format' => 'pdf']) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                    <i class="fas fa-file-pdf text-red-500 mr-3"></i>
-                                    Télécharger PDF
-                                </a>
-                                <a href="{{ route('rapport.global', ['format' => 'excel']) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                    <i class="fas fa-file-excel text-green-500 mr-3"></i>
-                                    Télécharger Excel
-                                </a>
-                                <div class="border-t border-gray-100 my-1"></div>
-                                <a href="{{ route('rapport.global', ['format' => 'preview']) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                    <i class="fas fa-eye text-blue-500 mr-3"></i>
-                                    Aperçu du rapport
-                                </a>
+                                <div class="flex items-center px-4 py-2 text-sm text-gray-500">
+                                    <i class="fas fa-info-circle text-gray-400 mr-3"></i>
+                                    Module désactivé
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametresController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\PersonnelController;
-use App\Http\Controllers\RapportController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,11 +37,10 @@ Route::get('/test-simple', function () {
     return view('test-simple');
 });
 
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-    // Routes pour les rapports (à venir)
-    Route::get('/rapport/global', [RapportController::class, 'rapportGlobal'])->name('rapport.global');
     
         // Routes pour les paramètres
     Route::middleware(['auth'])->prefix('parametres')->name('parametres.')->group(function () {
@@ -145,6 +143,9 @@ Route::middleware(['auth'])->group(function () {
         
         // Route pour l'export des inscriptions
         Route::get('/export-inscriptions', [InscriptionController::class, 'exportInscriptions'])->name('export-inscriptions');
+        
+        // Route pour la fiche élève
+        Route::get('/fiche-eleve/{inscription}', [InscriptionController::class, 'ficheEleve'])->name('fiche-eleve');
     });
 
     // Routes pour le module mensualités

@@ -70,9 +70,13 @@
                     
                     <div class="w-20 text-center">
                         <div class="w-16 h-16 border border-gray-300 bg-gray-100 flex items-center justify-center mb-1">
-                            <i class="fas fa-qrcode text-2xl text-gray-400"></i>
+                            @if(class_exists('SimpleSoftwareIO\QrCode\Facades\QrCode'))
+                                {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(60)->generate($qrData) !!}
+                            @else
+                                <i class="fas fa-qrcode text-2xl text-gray-400"></i>
+                            @endif
                         </div>
-                        <div class="text-xs text-gray-600">Code QR</div>
+                       
                     </div>
                 </div>
                 

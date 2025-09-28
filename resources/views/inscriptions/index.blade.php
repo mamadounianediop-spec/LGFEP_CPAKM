@@ -346,7 +346,7 @@
                                 <option value="orange_money">Orange Money</option>
                                 <option value="wave">Wave</option>
                                 <option value="free_money">Free Money</option>
-                                <option value="billetage">Billetage</option>
+                                <option value="especes">Espèces</option>
                             </select>
                         </div>
 
@@ -772,13 +772,11 @@
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             
-                                            @if($inscription->contact)
-                                                <a href="tel:{{ $inscription->contact }}" 
-                                                   class="inline-flex items-center px-2 py-1 text-xs text-white bg-orange-600 rounded hover:bg-orange-700" 
-                                                   title="Appeler">
-                                                    <i class="fas fa-phone"></i>
-                                                </a>
-                                            @endif
+                                            <a href="{{ route('inscriptions.fiche-eleve', $inscription) }}" 
+                                               class="inline-flex items-center px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700" 
+                                               title="Fiche élève" target="_blank">
+                                                <i class="fas fa-user-graduate"></i>
+                                            </a>
                                         @else
                                             <!-- Actions pour les inscriptions finalisées -->
                                             <a href="{{ route('inscriptions.recu', $inscription) }}"
@@ -808,13 +806,11 @@
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             
-                                            @if($eleve->contact)
-                                                <a href="tel:{{ $eleve->contact }}" 
-                                                   class="inline-flex items-center px-2 py-1 text-xs text-white bg-orange-600 rounded hover:bg-orange-700" 
-                                                   title="Appeler">
-                                                    <i class="fas fa-phone"></i>
-                                                </a>
-                                            @endif
+                                            <a href="{{ route('inscriptions.fiche-eleve', $inscription) }}" 
+                                               class="inline-flex items-center px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700" 
+                                               title="Fiche élève" target="_blank">
+                                                <i class="fas fa-user-graduate"></i>
+                                            </a>
                                             
                                             <button onclick="annulerInscription({{ $inscription->id }}, '{{ $eleve->nom }} {{ $eleve->prenom }}')"
                                                     class="inline-flex items-center px-2 py-1 text-xs text-white bg-red-600 rounded hover:bg-red-700"
@@ -1926,7 +1922,7 @@ async function loadFraisForFinaliser(niveauId) {
                         <option value="orange_money">Orange Money</option>
                         <option value="wave">Wave</option>
                         <option value="free_money">Free Money</option>
-                        <option value="billetage">Billetage</option>
+                        <option value="especes">Espèces</option>
                     </select>
                 </div>
 

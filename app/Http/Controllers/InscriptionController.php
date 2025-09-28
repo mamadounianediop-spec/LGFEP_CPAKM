@@ -158,7 +158,7 @@ class InscriptionController extends Controller
             'prenom' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\s\-]+$/',
             'sexe' => 'required|in:M,F',
             'ine' => 'nullable|string|max:20|unique:pre_inscriptions,ine|regex:/^[A-Z0-9]+$/',
-            'date_naissance' => 'nullable|date|before:today|after:1980-01-01',
+            'date_naissance' => 'nullable|date|before:today|after:1995-01-01|before:' . now()->subYears(10)->format('Y-m-d'),
             'lieu_naissance' => 'nullable|string|max:255',
             'adresse' => 'nullable|string|min:10',
             'contact' => 'nullable|string|regex:/^[0-9\s\-\+]+$/|min:8',
@@ -173,8 +173,8 @@ class InscriptionController extends Controller
             'sexe.in' => 'Le sexe doit être M (Masculin) ou F (Féminin)',
             'ine.unique' => 'Cet INE existe déjà dans le système',
             'ine.regex' => 'L\'INE doit contenir uniquement des lettres majuscules et des chiffres',
-            'date_naissance.before' => 'La date de naissance doit être antérieure à aujourd\'hui',
-            'date_naissance.after' => 'La date de naissance doit être postérieure à 1980',
+            'date_naissance.before' => 'L\'élève doit avoir au moins 10 ans (né avant le ' . now()->subYears(10)->format('d/m/Y') . ')',
+            'date_naissance.after' => 'La date de naissance doit être postérieure à 1995 (âge maximum 30 ans)',
             'adresse.min' => 'L\'adresse doit contenir au moins 10 caractères',
             'contact.regex' => 'Le numéro de contact n\'est pas valide',
             'contact.min' => 'Le numéro de contact doit contenir au moins 8 caractères',
@@ -209,7 +209,7 @@ class InscriptionController extends Controller
             'prenom' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\s\-]+$/',
             'sexe' => 'required|in:M,F',
             'ine' => 'nullable|string|max:20|unique:pre_inscriptions,ine,' . $preInscription->id . '|regex:/^[A-Z0-9]+$/',
-            'date_naissance' => 'nullable|date|before:today|after:1980-01-01',
+            'date_naissance' => 'nullable|date|before:today|after:1995-01-01|before:' . now()->subYears(10)->format('Y-m-d'),
             'lieu_naissance' => 'nullable|string|max:255',
             'adresse' => 'nullable|string|min:10',
             'contact' => 'nullable|string|regex:/^[0-9\s\-\+]+$/|min:8',
@@ -224,8 +224,8 @@ class InscriptionController extends Controller
             'sexe.in' => 'Le sexe doit être M (Masculin) ou F (Féminin)',
             'ine.unique' => 'Cet INE existe déjà dans le système',
             'ine.regex' => 'L\'INE doit contenir uniquement des lettres majuscules et des chiffres',
-            'date_naissance.before' => 'La date de naissance doit être antérieure à aujourd\'hui',
-            'date_naissance.after' => 'La date de naissance doit être postérieure à 1980',
+            'date_naissance.before' => 'L\'élève doit avoir au moins 10 ans (né avant le ' . now()->subYears(10)->format('d/m/Y') . ')',
+            'date_naissance.after' => 'La date de naissance doit être postérieure à 1995 (âge maximum 30 ans)',
             'adresse.min' => 'L\'adresse doit contenir au moins 10 caractères',
             'contact.regex' => 'Le numéro de contact n\'est pas valide',
             'contact.min' => 'Le numéro de contact doit contenir au moins 8 caractères',
@@ -258,7 +258,7 @@ class InscriptionController extends Controller
             'classe_id' => 'required|exists:classes,id',
             'montant_total' => 'required|numeric|min:1000|max:1000000',
             'montant_paye' => 'required|numeric|min:0|lte:montant_total',
-            'mode_paiement' => 'required|in:orange_money,wave,free_money,billetage',
+            'mode_paiement' => 'required|in:orange_money,wave,free_money,billetage,especes',
         ], [
             'pre_inscription_id.required' => 'Vous devez sélectionner un élève',
             'pre_inscription_id.exists' => 'L\'élève sélectionné n\'existe pas',
@@ -406,7 +406,7 @@ class InscriptionController extends Controller
             'classe_id' => 'required|exists:classes,id',
             'montant_total' => 'required|numeric|min:0',
             'montant_paye' => 'required|numeric|min:0',
-            'mode_paiement' => 'required|in:orange_money,wave,free_money,billetage',
+            'mode_paiement' => 'required|in:orange_money,wave,free_money,billetage,especes',
             'statut' => 'required|in:actif,suspendu,abandonne',
             'remarques' => 'nullable|string|max:1000'
         ], [
@@ -1205,6 +1205,43 @@ class InscriptionController extends Controller
             'paiements_partiels' => $paiementsPartiels,
             'non_payes' => $nonPayes
         ];
+    }
+
+    /**
+     * Afficher la fiche complète d'un élève
+     */
+    public function ficheEleve($inscriptionId)
+    {
+        $inscription = Inscription::with([
+            'preInscription',
+            'niveau', 
+            'classe',
+            'anneeScolaire',
+            'mensualites' => function($query) {
+                $query->orderByRaw("FIELD(mois_paiement, 'octobre', 'novembre', 'decembre', 'janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet')");
+            }
+        ])->findOrFail($inscriptionId);
+
+        // Statistiques des paiements mensuels
+        $totalMensualites = $inscription->mensualites->count();
+        $mensualitesPayees = $inscription->mensualites->where('statut', 'complet')->count();
+        $mensualitesPartielles = $inscription->mensualites->where('statut', 'partiel')->count();
+        $mensualitesImpayes = $inscription->mensualites->where('statut', 'impaye')->count();
+
+        $montantTotalMensualites = $inscription->mensualites->sum('montant_du');
+        $montantPayeMensualites = $inscription->mensualites->sum('montant_paye');
+        $soldeRestantMensualites = $montantTotalMensualites - $montantPayeMensualites;
+
+        return view('inscriptions.fiche-eleve', compact(
+            'inscription',
+            'totalMensualites',
+            'mensualitesPayees', 
+            'mensualitesPartielles',
+            'mensualitesImpayes',
+            'montantTotalMensualites',
+            'montantPayeMensualites',
+            'soldeRestantMensualites'
+        ));
     }
 
 }

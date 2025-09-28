@@ -64,8 +64,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label for="date_naissance" class="block text-sm font-medium text-gray-700">Date de naissance</label>
-                        <input type="date" name="date_naissance" id="date_naissance"
+                        <input type="date" name="date_naissance" id="date_naissance" 
+                               min="1995-01-01" max="{{ now()->subYears(10)->format('Y-m-d') }}"
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500">
+                        <p class="mt-1 text-xs text-gray-500">Âge requis : entre 10 et 30 ans (né entre 1995 et {{ now()->subYears(10)->format('Y') }})</p>
                         @error('date_naissance')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                     </div>
                     
@@ -189,8 +191,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label for="edit_date_naissance" class="block text-sm font-medium text-gray-700">Date de naissance</label>
-                        <input type="date" name="date_naissance" id="edit_date_naissance"
+                        <input type="date" name="date_naissance" id="edit_date_naissance" 
+                               min="1995-01-01" max="{{ now()->subYears(10)->format('Y-m-d') }}"
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500">
+                        <p class="mt-1 text-xs text-gray-500">Âge requis : entre 10 et 30 ans (né entre 1995 et {{ now()->subYears(10)->format('Y') }})</p>
                     </div>
                     
                     <div>
@@ -340,7 +344,7 @@
                             <option value="orange_money">Orange Money</option>
                             <option value="wave">Wave</option>
                             <option value="free_money">Free Money</option>
-                            <option value="billetage">Billetage</option>
+                            <option value="especes">Espèces</option>
                         </select>
                     </div>
 

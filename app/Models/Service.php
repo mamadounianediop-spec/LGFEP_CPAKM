@@ -12,6 +12,7 @@ class Service extends Model
         'nom',
         'categorie_service_id',
         'description',
+        'prix',
         'fournisseur',
         'date_acquisition',
         'statut',

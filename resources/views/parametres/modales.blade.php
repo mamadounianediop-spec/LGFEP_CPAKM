@@ -531,6 +531,83 @@
     </div>
 </div>
 
+<!-- Modal Modifier Utilisateur -->
+<div id="editUserModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden">
+    <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-lg bg-white">
+        <div class="mt-3">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900">Modifier l'Utilisateur</h3>
+                <button onclick="closeModal('editUserModal')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="editUserForm" method="POST" class="space-y-4">
+                @csrf
+                @method('PUT')
+                <div>
+                    <label for="edit_user_name" class="block text-sm font-medium text-gray-700">Nom complet</label>
+                    <input type="text" name="name" id="edit_user_name" required 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                           placeholder="Nom et prénom">
+                </div>
+                
+                <div>
+                    <label for="edit_user_email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" name="email" id="edit_user_email" required 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                           placeholder="email@exemple.com">
+                </div>
+                
+                <div>
+                    <label for="edit_user_password" class="block text-sm font-medium text-gray-700">Mot de passe <small>(laisser vide si inchangé)</small></label>
+                    <input type="password" name="password" id="edit_user_password" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                           placeholder="Nouveau mot de passe (optionnel)">
+                </div>
+                
+                <div>
+                    <label for="edit_user_password_confirmation" class="block text-sm font-medium text-gray-700">Confirmer</label>
+                    <input type="password" name="password_confirmation" id="edit_user_password_confirmation" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                           placeholder="Confirmer le nouveau mot de passe">
+                </div>
+                
+                <div>
+                    <label for="edit_user_role" class="block text-sm font-medium text-gray-700">Rôle</label>
+                    <select name="role" id="edit_user_role" required 
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="">Sélectionner un rôle</option>
+                        <option value="administrateur">Administrateur</option>
+                        <option value="directeur">Directeur</option>
+                        <option value="secretaire">Secrétaire</option>
+                        <option value="surveillant">Surveillant</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" name="actif" id="edit_user_actif" value="1"
+                           class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <label for="edit_user_actif" class="ml-2 block text-sm text-gray-900">
+                        Compte actif
+                    </label>
+                </div>
+                
+                <div class="flex justify-end space-x-3 pt-4">
+                    <button type="button" onclick="closeModal('editUserModal')" 
+                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 text-sm hover:bg-gray-50">
+                        Annuler
+                    </button>
+                    <button type="submit" 
+                            class="px-4 py-2 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700">
+                        Mettre à jour
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Modal de Confirmation de Suppression -->
 <div id="deleteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden">
     <div class="relative top-20 mx-auto p-5 border w-full max-w-sm shadow-lg rounded-lg bg-white">
@@ -720,6 +797,21 @@ function editNiveau(niveauId) {
         });
 }
 
+// Fonction pour éditer un utilisateur
+function editUser(userId, name, email, role, actif) {
+    document.getElementById('editUserForm').action = `/parametres/users/${userId}`;
+    document.getElementById('edit_user_name').value = name;
+    document.getElementById('edit_user_email').value = email;
+    document.getElementById('edit_user_role').value = role;
+    document.getElementById('edit_user_actif').checked = actif;
+    
+    // Vider les champs de mot de passe
+    document.getElementById('edit_user_password').value = '';
+    document.getElementById('edit_user_password_confirmation').value = '';
+    
+    openModal('editUserModal');
+}
+
 // Fonction pour confirmer la suppression
 function confirmDelete(type, id, description = '') {
     let deleteUrl = '';
@@ -760,7 +852,7 @@ function editFrais(id, type, montant, niveauId, actif) {
 
 // Fermer les modales en cliquant à l'extérieur
 window.onclick = function(event) {
-    const modals = ['addNiveauModal', 'editNiveauModal', 'addClasseModal', 'addFraisModal', 'editFraisModal', 'addUserModal', 'deleteModal'];
+    const modals = ['addNiveauModal', 'editNiveauModal', 'addClasseModal', 'addFraisModal', 'editFraisModal', 'addUserModal', 'editUserModal', 'deleteModal'];
     modals.forEach(modalId => {
         const modal = document.getElementById(modalId);
         if (event.target == modal) {
@@ -772,7 +864,7 @@ window.onclick = function(event) {
 // Échapper pour fermer les modales
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
-        const modals = ['addNiveauModal', 'editNiveauModal', 'addClasseModal', 'addFraisModal', 'editFraisModal', 'addUserModal', 'addAnneeModal', 'editAnneeModal', 'deleteModal'];
+        const modals = ['addNiveauModal', 'editNiveauModal', 'addClasseModal', 'addFraisModal', 'editFraisModal', 'addUserModal', 'editUserModal', 'addAnneeModal', 'editAnneeModal', 'deleteModal'];
         modals.forEach(modalId => {
             const modal = document.getElementById(modalId);
             if (!modal.classList.contains('hidden')) {

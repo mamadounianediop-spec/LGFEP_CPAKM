@@ -465,19 +465,26 @@
                                                 <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Inactif</span>
                                             @endif
                                         </td>
-                                        <td class="px-4 py-3 text-right text-sm font-medium">
-                                            <button class="text-indigo-600 hover:text-indigo-900 mr-2">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            @if($user->email !== 'admin@cpakm.sn')
-                                                <button class="text-red-600 hover:text-red-900">
-                                                    <i class="fas fa-trash"></i>
+                                        <td class="px-4 py-3">
+                                            <div class="flex gap-1 items-center justify-end">
+                                                <button onclick="editUser({{ $user->id }}, '{{ addslashes($user->name) }}', '{{ $user->email }}', '{{ $user->role }}', {{ $user->actif ? 'true' : 'false' }})"
+                                                        class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+                                                        title="Modifier l'utilisateur">
+                                                    <i class="fas fa-edit"></i>
                                                 </button>
-                                            @else
-                                                <span class="text-gray-400 cursor-not-allowed" title="L'administrateur ne peut pas être supprimé">
-                                                    <i class="fas fa-trash"></i>
-                                                </span>
-                                            @endif
+                                                @if($user->email !== 'admin@cpakm.sn')
+                                                    <button onclick="confirmDelete('user', {{ $user->id }}, '{{ addslashes($user->name) }}')"
+                                                            class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors"
+                                                            title="Supprimer l'utilisateur">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                @else
+                                                    <span class="inline-flex items-center justify-center w-8 h-8 text-xs text-gray-400 bg-gray-200 rounded-md cursor-not-allowed" 
+                                                          title="L'administrateur ne peut pas être supprimé">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -14,10 +14,10 @@ class AdminUserSeeder extends Seeder
     {
         \App\Models\User::create([
             'name' => 'Admin CPAKM',
-            'email' => 'admin@cpakm.sn',
-            'password' => bcrypt('admin123'),
+            'email' => env('ADMIN_EMAIL', 'admin@example.com'),
+            'password' => bcrypt(env('ADMIN_PASSWORD', 'changeme123')),
             'role' => 'administrateur',
-            'telephone' => '77 123 45 67',
+            'telephone' => '77 XXX XX XX',
             'adresse' => 'Dakar, Sénégal',
             'actif' => true,
             'email_verified_at' => now(),

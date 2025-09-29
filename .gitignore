@@ -22,3 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Seeders sensibles (identifiants admin)
+/database/seeders/AdminUserSeeder.php

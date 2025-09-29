@@ -434,35 +434,37 @@
                                     <td class="px-3 py-3 text-xs text-gray-900">
                                         {{ $mensualite->date_paiement ? $mensualite->date_paiement->format('d/m/y') : 'N/A' }}
                                     </td>
-                                    <td class="px-3 py-3 text-xs space-x-1">
-                                        <!-- Fiche élève -->
-                                        <a href="{{ route('inscriptions.fiche-eleve', $mensualite->inscription->id) }}"
-                                           class="inline-flex items-center px-2 py-1 text-xs text-white bg-purple-600 rounded hover:bg-purple-700"
-                                           target="_blank" title="Fiche élève">
-                                            <i class="fas fa-user-graduate"></i>
-                                        </a>
-                                        
-                                        @if($mensualite->numero_recu)
-                                            <a href="{{ route('mensualites.voir-recu', $mensualite->id) }}"
-                                               class="inline-flex items-center px-2 py-1 text-xs text-white bg-green-600 rounded hover:bg-green-700" 
-                                               target="_blank" title="Voir le reçu">
-                                                <i class="fas fa-receipt"></i>
+                                    <td class="px-3 py-3">
+                                        <div class="flex flex-wrap gap-1 items-center justify-start">
+                                            <!-- Fiche élève -->
+                                            <a href="{{ route('inscriptions.fiche-eleve', $mensualite->inscription->id) }}"
+                                               class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-purple-600 rounded-md hover:bg-purple-700 transition-colors"
+                                               target="_blank" title="Fiche élève">
+                                                <i class="fas fa-user-graduate"></i>
                                             </a>
-                                        @endif
-                                        
-                                        <button onclick="modifierPaiement({{ $mensualite->id }})"
-                                                class="inline-flex items-center px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700"
-                                                title="Modifier le paiement">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        
-                                        @if($mensualite->created_at->diffInHours(now()) <= 24)
-                                            <button onclick="supprimerPaiement({{ $mensualite->id }}, '{{ $mensualite->inscription->preInscription->nom }} {{ $mensualite->inscription->preInscription->prenom }}')"
-                                                    class="inline-flex items-center px-2 py-1 text-xs text-white bg-red-600 rounded hover:bg-red-700"
-                                                    title="Supprimer le paiement">
-                                                <i class="fas fa-trash"></i>
+                                            
+                                            @if($mensualite->numero_recu)
+                                                <a href="{{ route('mensualites.voir-recu', $mensualite->id) }}"
+                                                   class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors" 
+                                                   target="_blank" title="Voir le reçu">
+                                                    <i class="fas fa-receipt"></i>
+                                                </a>
+                                            @endif
+                                            
+                                            <button onclick="modifierPaiement({{ $mensualite->id }})"
+                                                    class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+                                                    title="Modifier le paiement">
+                                                <i class="fas fa-edit"></i>
                                             </button>
-                                        @endif
+                                            
+                                            @if($mensualite->created_at->diffInHours(now()) <= 24)
+                                                <button onclick="supprimerPaiement({{ $mensualite->id }}, '{{ $mensualite->inscription->preInscription->nom }} {{ $mensualite->inscription->preInscription->prenom }}')"
+                                                        class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors"
+                                                        title="Supprimer le paiement">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

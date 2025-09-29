@@ -783,71 +783,72 @@
                                     <td class="px-3 py-3 text-xs text-gray-900">
                                         {{ $inscription->created_at->format('d/m/Y') }}
                                     </td>
-                                    <td class="px-3 py-3 text-xs space-x-1">
-                                        @if($isPreInscription)
-                                            <!-- Actions pour les pré-inscriptions (non inscrits) -->
-                                            <button onclick="finaliserInscription({{ $inscription->id }})"
-                                                    class="inline-flex items-center px-2 py-1 text-xs text-white bg-green-600 rounded hover:bg-green-700"
-                                                    title="Finaliser l'inscription">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                            
-                                            <button onclick="editPreInscription({{ json_encode([
-                                                'id' => $inscription->id,
-                                                'nom' => $inscription->nom,
-                                                'prenom' => $inscription->prenom,
-                                                'ine' => $inscription->ine,
-                                                'contact' => $inscription->contact ?? '',
-                                                'date_naissance' => $inscription->date_naissance ? $inscription->date_naissance->format('Y-m-d') : ''
-                                            ]) }})"
-                                                    class="inline-flex items-center px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700"
-                                                    title="Modifier">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            
-                                            <a href="{{ route('inscriptions.fiche-eleve', $inscription) }}" 
-                                               class="inline-flex items-center px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700" 
-                                               title="Fiche élève" target="_blank">
-                                                <i class="fas fa-user-graduate"></i>
-                                            </a>
-                                        @else
-                                            <!-- Actions pour les inscriptions finalisées -->
-                                            <a href="{{ route('inscriptions.recu', $inscription) }}"
-                                               class="inline-flex items-center px-2 py-1 text-xs text-white bg-green-600 rounded hover:bg-green-700" 
-                                               target="_blank" title="Voir le reçu">
-                                                <i class="fas fa-receipt"></i>
-                                            </a>
-                                            
-                                            <button onclick="editInscription({{ json_encode([
-                                                'id' => $inscription->id,
-                                                'niveau_id' => $inscription->niveau_id,
-                                                'classe_id' => $inscription->classe_id,
-                                                'montant_total' => $inscription->montant_total,
-                                                'montant_paye' => $inscription->montant_paye,
-                                                'mode_paiement' => $inscription->mode_paiement,
-                                                'statut' => $inscription->statut,
-                                                'remarques' => $inscription->remarques ?? '',
-                                                'eleve' => [
-                                                    'nom_complet' => $eleve->nom . ' ' . $eleve->prenom,
-                                                    'ine' => $eleve->ine,
-                                                    'contact' => $eleve->contact,
-                                                    'date_naissance' => $eleve->date_naissance ? $eleve->date_naissance->format('d/m/Y') : ''
-                                                ]
-                                            ]) }})"
-                                                    class="inline-flex items-center px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700"
-                                                    title="Modifier">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            
-                                            <a href="{{ route('inscriptions.fiche-eleve', $inscription) }}" 
-                                               class="inline-flex items-center px-2 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700" 
-                                               title="Fiche élève" target="_blank">
-                                                <i class="fas fa-user-graduate"></i>
-                                            </a>
-                                            
-                                            <button onclick="annulerInscription({{ $inscription->id }}, '{{ $eleve->nom }} {{ $eleve->prenom }}')"
-                                                    class="inline-flex items-center px-2 py-1 text-xs text-white bg-red-600 rounded hover:bg-red-700"
-                                                    title="Annuler l'inscription">
+                                    <td class="px-3 py-3">
+                                        <div class="flex flex-wrap gap-1 items-center justify-start">
+                                            @if($isPreInscription)
+                                                <!-- Actions pour les pré-inscriptions (non inscrits) -->
+                                                <button onclick="finaliserInscription({{ $inscription->id }})"
+                                                        class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors"
+                                                        title="Finaliser l'inscription">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                
+                                                <button onclick="editPreInscription({{ json_encode([
+                                                    'id' => $inscription->id,
+                                                    'nom' => $inscription->nom,
+                                                    'prenom' => $inscription->prenom,
+                                                    'ine' => $inscription->ine,
+                                                    'contact' => $inscription->contact ?? '',
+                                                    'date_naissance' => $inscription->date_naissance ? $inscription->date_naissance->format('Y-m-d') : ''
+                                                ]) }})"
+                                                        class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+                                                        title="Modifier">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                
+                                                <a href="{{ route('inscriptions.fiche-eleve', $inscription) }}" 
+                                                   class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-purple-600 rounded-md hover:bg-purple-700 transition-colors" 
+                                                   title="Fiche élève" target="_blank">
+                                                    <i class="fas fa-user-graduate"></i>
+                                                </a>
+                                            @else
+                                                <!-- Actions pour les inscriptions finalisées -->
+                                                <a href="{{ route('inscriptions.recu', $inscription) }}"
+                                                   class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors" 
+                                                   target="_blank" title="Voir le reçu">
+                                                    <i class="fas fa-receipt"></i>
+                                                </a>
+                                                
+                                                <button onclick="editInscription({{ json_encode([
+                                                    'id' => $inscription->id,
+                                                    'niveau_id' => $inscription->niveau_id,
+                                                    'classe_id' => $inscription->classe_id,
+                                                    'montant_total' => $inscription->montant_total,
+                                                    'montant_paye' => $inscription->montant_paye,
+                                                    'mode_paiement' => $inscription->mode_paiement,
+                                                    'statut' => $inscription->statut,
+                                                    'remarques' => $inscription->remarques ?? '',
+                                                    'eleve' => [
+                                                        'nom_complet' => $eleve->nom . ' ' . $eleve->prenom,
+                                                        'ine' => $eleve->ine,
+                                                        'contact' => $eleve->contact,
+                                                        'date_naissance' => $eleve->date_naissance ? $eleve->date_naissance->format('d/m/Y') : ''
+                                                    ]
+                                                ]) }})"
+                                                        class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+                                                        title="Modifier">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                
+                                                <a href="{{ route('inscriptions.fiche-eleve', $inscription) }}" 
+                                                   class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-purple-600 rounded-md hover:bg-purple-700 transition-colors" 
+                                                   title="Fiche élève" target="_blank">
+                                                    <i class="fas fa-user-graduate"></i>
+                                                </a>
+                                                
+                                                <button onclick="annulerInscription({{ $inscription->id }}, '{{ $eleve->nom }} {{ $eleve->prenom }}')"
+                                                        class="inline-flex items-center justify-center w-8 h-8 text-xs text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors"
+                                                        title="Annuler l'inscription">
                                                 <i class="fas fa-ban"></i>
                                             </button>
                                         @endif

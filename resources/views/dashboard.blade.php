@@ -538,8 +538,12 @@
                 
                 @if(auth()->user()->isAdminOrDirector())
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('parametres.index') }}" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <a href="{{ route('parametres.index') }}" class="text-gray-400 hover:text-gray-600 transition-colors" title="Paramètres">
                         <i class="fas fa-cog"></i>
+                    </a>
+                    <a href="{{ route('activity.password-form') }}" class="text-gray-400 hover:text-red-600 transition-colors relative" title="Logs d'Activité (Accès Protégé)">
+                        <i class="fas fa-history"></i>
+                        <i class="fas fa-shield-alt text-red-500 absolute -top-1 -right-1 text-xs"></i>
                     </a>
                     <div class="h-4 w-px bg-gray-300"></div>
                     <span class="text-xs text-gray-500">{{ auth()->user()->name }}</span>

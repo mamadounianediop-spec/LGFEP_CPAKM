@@ -255,6 +255,46 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/depenses/apercu', [App\Http\Controllers\ServiceController::class, 'apercuDepenses'])->name('depenses.apercu');
         Route::post('/rapports/exporter-pdf', [App\Http\Controllers\ServiceController::class, 'exporterRapportPDF'])->name('rapports.exporter-pdf');
     });
+
+    // Route pour le formulaire de mot de passe des logs (non protégée)
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/activity/password', function() {
+            return view('activity.password-form');
+        })->name('activity.password-form');
+        
+        Route::post('/activity/authenticate-password', [App\Http\Controllers\ActivityController::class, 'authenticatePassword'])->name('activity.authenticate-password');
+    });
+
+    // Routes pour le module activité/logs (protégées par mot de passe)
+    Route::middleware(['auth', 'activity.access'])->prefix('activity')->name('activity.')->group(function () {
+        Route::get('/', [App\Http\Controllers\ActivityController::class, 'index'])->name('index');
+        Route::get('/activities', [App\Http\Controllers\ActivityController::class, 'getActivities'])->name('get-activities');
+        Route::get('/stats', [App\Http\Controllers\ActivityController::class, 'getStats'])->name('stats');
+        Route::get('/storage-stats', [App\Http\Controllers\ActivityController::class, 'storageStats'])->name('storage-stats');
+        Route::get('/show/{activity}', [App\Http\Controllers\ActivityController::class, 'show'])->name('show');
+        Route::get('/export', [App\Http\Controllers\ActivityController::class, 'export'])->name('export');
+        Route::post('/cleanup', [App\Http\Controllers\ActivityController::class, 'cleanup'])->name('cleanup');
+    });
+
+    // Route pour déconnecter l'accès aux logs (sans protection)
+    Route::middleware(['auth'])->post('/activity/logout', function() {
+        Session::forget('activity_log_access_time');
+        Session::forget('activity_log_access_user');
+        
+        // Logger la déconnexion
+        \App\Models\ActivityLog::create([
+            'user_id' => auth()->id(),
+            'action' => 'LOGOUT_LOGS',
+            'description' => 'Déconnexion de l\'accès aux logs d\'activité',
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+            'method' => 'POST',
+            'url' => request()->fullUrl(),
+            'level' => 'info'
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Accès aux logs révoqué']);
+    })->name('activity.logout');
 });
 
 require __DIR__.'/auth.php';

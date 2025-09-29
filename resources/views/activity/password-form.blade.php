@@ -3,14 +3,14 @@
 @section('title', 'Accès aux Logs d\'Activité')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
+<div class="h-screen bg-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-6">
         <!-- En-tête -->
         <div class="text-center">
             <div class="mx-auto h-16 w-16 bg-purple-100 rounded-full flex items-center justify-center">
                 <i class="fas fa-shield-alt text-purple-600 text-2xl"></i>
             </div>
-            <h2 class="mt-6 text-3xl font-bold text-gray-900">Accès Sécurisé</h2>
+            <h2 class="mt-4 text-2xl font-bold text-gray-900">Accès Sécurisé</h2>
             <p class="mt-2 text-sm text-gray-600">
                 Saisissez le mot de passe pour accéder aux logs d'activité
             </p>
@@ -18,7 +18,7 @@
 
         <!-- Formulaire -->
         <div class="bg-white shadow-sm rounded-lg border">
-            <form id="passwordForm" method="POST" action="{{ route('activity.authenticate-password') }}" class="px-6 py-8 space-y-6">
+            <form id="passwordForm" method="POST" action="{{ route('activity.authenticate-password') }}" class="px-6 py-6 space-y-5">
                 @csrf
                 
                 <!-- Info utilisateur -->
@@ -44,7 +44,7 @@
                 </div>
 
                 <!-- Boutons -->
-                <div class="space-y-4">
+                <div class="space-y-3">
                     <button type="submit" 
                             class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors">
                         <i class="fas fa-unlock-alt mr-2"></i>
